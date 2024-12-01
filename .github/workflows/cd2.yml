@@ -99,8 +99,14 @@ jobs:
           REPOSITORYBACK: "${{ secrets.DOCKER_USERNAME }}/cs360_test_backend"
           REPOSITORYFRONT: "${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend"
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
+          # Save th private key from the secret to a file
+          echo "$PRIVATE_KEY" > private_key 
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'        
+
+          # Test the ssh connection
+          echo "Connected to EC2 instance successfully
+          
           # Install Docker if not already installed
           sudo yum install -y docker
           sudo service docker start
