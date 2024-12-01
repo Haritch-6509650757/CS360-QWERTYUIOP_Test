@@ -5,5 +5,4 @@ sudo yum install -y docker
 sudo service docker start
 sudo usermod -aG docker ec2-user
 
-# Pull and run the Docker container
-sudo docker run -d -p 80:3000 --name cs360-QWERTYUIOP haritch/cs360-QWERTYUIOP:latest
+
