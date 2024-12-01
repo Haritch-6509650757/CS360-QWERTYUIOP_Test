@@ -110,30 +110,27 @@ jobs:
           echo "EC2 Instance DNS: ${{ env.INSTANCE_PUBLIC_DNS }}"
           
           # Test the SSH connection
-          ssh -v -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
-          
-          # Test the SSH connection
-          echo "Connected to EC2 instance successfully"
-          
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
+  
           # Install Docker if not already installed
           sudo yum install -y docker
-          sudo service docker start
+          sudo systemctl start docker
 
           # Pull and run the backend container
-          docker pull $REPOSITORYBACK
+          docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
           docker run --name cs360_test_backend \
             -p 1337:1337 \
             -e HOST=0.0.0.0 \
             -e PORT=1337 \
-            -e STRAPI_ADMIN_CLIENT_URL=http://${env.INSTANCE_PUBLIC_IPV4}:3000/ \
+            -e STRAPI_ADMIN_CLIENT_URL=http://${{ env.INSTANCE_PUBLIC_IPV4 }}:3000/ \
             -e STRAPI_ADMIN_CLIENT_PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
             -d
-
+        
           # Pull and run the frontend container
-          docker pull $REPOSITORYFRONT
+          docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
           docker run --name cs360_test_frontend \
             -p 3000:3000 \
-            -e NEXT_PUBLIC_API_URL=http://${env.INSTANCE_PUBLIC_IPV4}:1337/ \
+            -e NEXT_PUBLIC_API_URL=http://${{ env.INSTANCE_PUBLIC_IPV4 }}:1337/ \
             -e PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
             -d
           
