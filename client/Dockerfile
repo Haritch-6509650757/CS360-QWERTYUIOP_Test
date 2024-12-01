@@ -19,4 +19,4 @@ RUN echo "Seed step skipped"
 EXPOSE 8080
 
 # Start the app
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
