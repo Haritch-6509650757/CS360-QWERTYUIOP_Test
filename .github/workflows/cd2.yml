@@ -95,7 +95,7 @@ jobs:
       # Step 6: Connect to EC2 Instance and Deploy Backend & Frontend
       - name: Connect and Deploy Docker Containers on EC2
         env:
-          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
           REPOSITORYBACK: "${{ secrets.DOCKER_USERNAME }}/cs360_test_backend"
           REPOSITORYFRONT: "${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend"
         run: |
