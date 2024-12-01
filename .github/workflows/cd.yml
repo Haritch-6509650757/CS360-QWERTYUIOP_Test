@@ -85,4 +85,4 @@ jobs:
 
             # Check if the container is running
             docker ps
-EOF
+            EOF
