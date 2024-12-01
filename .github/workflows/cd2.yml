@@ -116,6 +116,12 @@ jobs:
           sudo yum install -y docker
           sudo systemctl start docker
 
+          # เพิ่มผู้ใช้ไปยังกลุ่ม docker
+          sudo usermod -aG docker $USER
+
+          # รีสตาร์ทบริการ docker เพื่อให้การเปลี่ยนแปลงมีผล
+          sudo systemctl restart docker
+
           # Pull and run the backend container
           docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
           docker run --name cs360_test_backend \
