@@ -105,6 +105,10 @@ jobs:
           # Ensure the correct permissions for the private key
           chmod 600 private_key.pem
           
+          # Debugging step to print out variables
+          echo "SSH User: ${{ secrets.SSH_USER }}"
+          echo "EC2 Instance DNS: ${{ env.INSTANCE_PUBLIC_DNS }}"
+          
           # Test the SSH connection
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
           
@@ -132,4 +136,5 @@ jobs:
             -e NEXT_PUBLIC_API_URL=http://${env.INSTANCE_PUBLIC_IPV4}:1337/ \
             -e PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
             -d
+          
           EOF
