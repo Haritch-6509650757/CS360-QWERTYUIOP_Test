@@ -31,9 +31,9 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}  # ใช้ GitHub secret สำหรับ private key
           script: |
-            # Pull and run the Docker images on the EC2 instance
+            # Pull และรัน Docker images บน EC2 instance
             docker stop frontend || true
             docker rm frontend || true
             docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
@@ -44,5 +44,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
             docker run -d --name backend -p 1337:1337 ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
 
-            # Check the status of containers
+            # ตรวจสอบสถานะของ containers
             docker ps
