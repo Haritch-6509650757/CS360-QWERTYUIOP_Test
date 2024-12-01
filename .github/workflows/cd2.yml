@@ -110,7 +110,7 @@ jobs:
           echo "EC2 Instance DNS: ${{ env.INSTANCE_PUBLIC_DNS }}"
           
           # Test the SSH connection
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
+          ssh -v -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.SSH_USER }}@${{ env.INSTANCE_PUBLIC_DNS }} << 'EOF'
           
           # Test the SSH connection
           echo "Connected to EC2 instance successfully"
