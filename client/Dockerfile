@@ -8,12 +8,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN yarn install
+RUN npm install
 
 # Copy the entire application source code
 COPY . .
 
-RUN yarn seed
+#RUN yarn seed
+RUN echo "Seed step skipped"
 # Expose the port your app runs on
 EXPOSE 8080
 
