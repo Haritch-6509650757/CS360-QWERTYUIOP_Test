@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
+# Install jsonwebtoken explicitly if not in package.json
+RUN npm install jsonwebtoken
+
 # Install dependencies
 RUN npm install
 
