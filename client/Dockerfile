@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install jsonwebtoken && npm install
 
 # Copy the entire application source code
 COPY . .
