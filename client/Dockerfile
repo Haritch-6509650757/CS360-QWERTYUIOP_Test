@@ -10,11 +10,15 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+RUN npm list --depth=0
+
 # Copy the entire application source code
 COPY . .
 
 # Build the production version of the Next.js app
 RUN npm run build
+
+RUN npm run build || { echo "Build failed"; exit1; }
 
 # Expose the port your app runs on
 EXPOSE 3000
