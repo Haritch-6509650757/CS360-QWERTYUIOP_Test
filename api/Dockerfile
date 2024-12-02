@@ -13,12 +13,12 @@ RUN npm install
 # Copy the entire application source code
 COPY . .
 
-#RUN yarn seed
-RUN echo "Seed step skipped"
+# Seed database or initial data (optional)
+RUN npm run seed
 
-# Create necessary directories (uploads) and set permissions (if required)
-RUN mkdir -P /app/public/uploads
-RUN chmod -R 775 /app/public/uploads
+# Build the production version of the app
+RUN npm run build
+
 # Expose the port your app runs on
 EXPOSE 1337
 
