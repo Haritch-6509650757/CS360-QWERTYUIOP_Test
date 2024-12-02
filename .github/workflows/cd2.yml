@@ -157,6 +157,6 @@ jobs:
             -p 3000:3000 \
             -e NEXT_PUBLIC_API_URL=http://${{ env.INSTANCE_PUBLIC_IPV4 }}:1337/ \
             -e PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
-            -d ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
+            -d ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest /bin/bash -c "npm install && npm run build && npm start"
           
           EOF
