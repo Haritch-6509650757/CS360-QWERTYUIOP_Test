@@ -15,6 +15,10 @@ COPY . .
 
 #RUN yarn seed
 RUN echo "Seed step skipped"
+
+# Build the production version of the Next.js app
+RUN npm run build
+
 # Expose the port your app runs on
 EXPOSE 8080
 
