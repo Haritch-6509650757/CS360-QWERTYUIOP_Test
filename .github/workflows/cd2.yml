@@ -123,8 +123,8 @@ jobs:
           sudo systemctl restart docker
 
           # Pull and run the backend container
-          docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
-          docker run --name cs360_test_backend \
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
+          sudo docker run --name cs360_test_backend \
             -p 1337:1337 \
             -e HOST=0.0.0.0 \
             -e PORT=1337 \
@@ -133,8 +133,8 @@ jobs:
             -d
         
           # Pull and run the frontend container
-          docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
-          docker run --name cs360_test_frontend \
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
+          sudo docker run --name cs360_test_frontend \
             -p 3000:3000 \
             -e NEXT_PUBLIC_API_URL=http://${{ env.INSTANCE_PUBLIC_IPV4 }}:1337/ \
             -e PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
