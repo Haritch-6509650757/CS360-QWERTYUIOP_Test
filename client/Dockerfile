@@ -10,14 +10,8 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Install jsonwebtoken explicitly if not in package.json
-RUN npm install jsonwebtoken
-
 # Copy the entire application source code
 COPY . .
-
-#RUN yarn seed
-RUN echo "Seed step skipped"
 
 # Build the production version of the Next.js app
 RUN npm run build
