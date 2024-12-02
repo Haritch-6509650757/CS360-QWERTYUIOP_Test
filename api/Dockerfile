@@ -15,8 +15,12 @@ COPY . .
 
 #RUN yarn seed
 RUN echo "Seed step skipped"
+
+# Create necessary directories (uploads) and set permissions (if required)
+RUN mkdir -P /app/public/uploads
+RUN chmod -R 775 /app/public/uploads
 # Expose the port your app runs on
 EXPOSE 1337
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
