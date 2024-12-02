@@ -130,9 +130,22 @@ jobs:
             -e PORT=1337 \
             -e STRAPI_ADMIN_CLIENT_URL=http://${{ env.INSTANCE_PUBLIC_IPV4 }}:3000/ \
             -e STRAPI_ADMIN_CLIENT_PREVIEW_SECRET=ARNFCb9zrC9ZHm5hZzCigWivD40icS4s \
-            -d ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest
-        
-          # Pull and run the frontend container
+            -v /path/on/host/uploads:/app/public/uploads \
+            -d ${{ secrets.DOCKER_USERNAME }}/cs360_test_backend:latest || { echo "Failed to run backend container"; exit 1; }
+            
+          
+          # ตรวจสอบสถานะของ backend container
+          echo "Checking Backend Container Status..."
+          BACKEND_STATUS=$(sudo docker inspect -f '{{.State.Status}}' cs360_test_backend)
+          if [ "$BACKEND_STATUS" != "running" ]; then
+            echo "Backend container failed to start. Check logs for details."
+            sudo docker logs cs360_test_backend
+            exit 1
+          fi
+          echo "Backend deployed successfully."
+          
+          # Pull และ run frontend container
+          echo "Deploying Frontend Container..."
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/cs360_test_frontend:latest
           sudo docker run --name cs360_test_frontend \
             -p 3000:3000 \
