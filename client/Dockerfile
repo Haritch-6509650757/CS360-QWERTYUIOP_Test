@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Install jsonwebtoken explicitly if not in package.json
+RUN npm install jsonwebtoken
+
 # Copy the entire application source code
 COPY . .
 
